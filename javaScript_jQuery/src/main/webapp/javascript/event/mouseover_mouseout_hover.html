@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(function() {
+	$("#btn1").mouseover(function() {
+		$("p").css("background-color","yellow");	
+
+	});
+	$("#btn1").mouseover(function(e) {
+		e.preventDefault();
+		$("p").css("background-color","purple");	
+	
+	});
+	$("#btn3").mousehover(function() {
+		$("p").css("background-color","aqua");	
+	});
+	$("#btn1").dblclick();
+});
+
+</script>
+</head>
+<body>
+	<button id="btn1">mouseover/mouseout</button><br>
+	<button id="btn2">mousehover</button><br>
+
+	<p>내용</p>
+</body>
+</html>

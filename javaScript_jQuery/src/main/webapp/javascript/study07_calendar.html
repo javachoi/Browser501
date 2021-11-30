@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+// 시간을 읽어와서 오전/오후로 설정 하기 
+	function get_Time(){
+		var now = new Date();
+		var hour = now.getHours();
+		var minute = now.getMinutes();
+		var ampm;
+	
+		if(hour >= 12){
+			hour -= 12;
+			ampm="오후";
+		} else {
+			ampm="오전";
+		}
+		hour = (hour == 0)? 12:hour;
+		
+		if(minute < 10)
+			minute = "0"+minute;
+		
+		return ampm+hour+": "+minute;
+	}
+// 년과 달을 받아서 마지막일 출력 
+	function get_Day(year,month){
+		var Mon2;
+		var Last_Mon = new Array(31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+// 2월 윤년 구하기 
+		if(year % 4 == 0)
+			Mon2 = true;
+		else
+			Mon2 = false;
+		Last_Mon[1]  = (Mon2)? 29 : 28
+		
+		return Last_Mon[month];
+}
+
+	var digit = 1; // day의 일에 해당 
+	var curCell = 1;
+	
+	
+// 테이블을 이용해서 달력을 만들기 
+	function drawCal(firstDay,lastDate,date,year,monthName){
+		var text = "";
+		text += "<CENTER><TABLE><TH COLSPAN=7 BGCOLOR=#F0F0F0";
+		text += "<FONT COLOR=midnightblue size=+3> ";
+		text += year + "년" + (monthName+1) + "월";
+		text += "</font></th>";
+		
+		var weekDay = new Array("일", "월", "화", "수", "목", "금", "토");
+		
+		
+		text += "<TR ALIGN=center VALIGN=center>";
+		
+		var openCol = "<TD BGCOLOR=#FFEFFF WIDTH=45 HEIGHT=40>";
+			openCol += "<FONT COLOR=darkblue>";
+		
+		var closeCol = "</FONT></TD>";
+		for(var dayNum=0; dayNum <=6; dayNum++){
+			text += openCol+weekDay[dayNum]+closeCol;
+			
+		}
+		text +="</TR>";
+// 달력표 만들기 
+		for(var row=1; row <= Math.ceil((lastDate+firstDay-1)); row++){
+		text += "<TR ALIGN=right VALIGN=top BGCOLOR=#FFEFEE>";
+		
+			for(var col=1; col<=7; col++){//시작일부터 ~ 말일 설정
+				if(digit > lastDate) break;
+				if(curCell < firstDay) {
+					text += "<TD>&nbsp</TD>;"
+					curCell++;
+				} else {
+					if(digit == date) {
+						 text += "<TD BGCOLOR=#FFEFEE WIDTH=45 HEIGHT=40>";
+				    	 text += "<FONT COLOR=red size=2>";
+				    	 text += digit;
+				    	 text += "<br>";
+				    	 text += "<center>" +get_Time() + "</center>";
+				    	 text += "</font>";
+				    	 text += "</td>";
+				} else {
+					   	 text += "<TD HEIGHT=40>"+digit+"</td>";
+					}
+					 digit++;
+				}
+			}
+			text +="</TR>"
+		}
+		text +="</TABLE>";
+		text +="</CENTER>";
+		
+		return text;
+		}
+</script>	
+<script>
+	var now = new Date();
+	var year = now.getYear();
+	var month = now.getMonth()+1;
+	var date = now.getDate();
+	
+	var firstDayInstance = new Date(year,month,1);
+	var firstDay = firstDayInstance.getDay()+1;//요일계산
+	var days = get_Day(year,month);
+	var my_text = drawCal(firstDay,days,date,year,month);
+	document.write(my_text);
+	
+
+</script>
+</body>
+</html>
