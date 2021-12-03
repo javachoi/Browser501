@@ -4,13 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>HTML 문서의 제목</title>
+<title>Insert title here</title>
 </head>
 <body>
 <%
-	String bookTitle = "JSP 프로그래밍";
-	String author = "최범균";
+String id = request.getParameter("id");
+String pw = request.getParameter("pw");
+
+out.println("<html><body>id:"+id+"  pw:"+pw+"</body></html>");
+
 %>
-<b><%= bookTitle %>(<%= author %>)입니다.</b>
 </body>
 </html>
