@@ -11,7 +11,7 @@
   </welcome-file-list>
   
   
-서블릿 매핑방법2:web.xml 방식
+<!-- 서블릿 매핑방법2:web.xml 방식 -->
   <servlet>
   	<servlet-name>ServletTest</servlet-name>
   	<servlet-class>StartXML</servlet-class>
